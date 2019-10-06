@@ -19,8 +19,9 @@ public class PostServiceImp implements PostService {
 	
 	@Override
 	public void createPost(Post post) {
-		Date date = new Date();
-		post.setCreateDate(date);
+		/*
+		 * Date date = new Date(); post.setCreateDate(date);
+		 */
 		
 		postRepository.save(post);
 	}
@@ -38,8 +39,9 @@ public class PostServiceImp implements PostService {
 
 	@Override
 	public Post update(Post post) {
-		Date updateDate = new Date();
-		post.setUpdateDate(updateDate);
+		/*
+		 * Date updateDate = new Date(); post.setUpdateDate(updateDate);
+		 */
 		
 		return postRepository.save(post);
 	}

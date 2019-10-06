@@ -1,12 +1,13 @@
 package com.duzgun.blog.bean;
 
-import java.util.Date;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Category")
-public class Category {
+public class Category{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,17 +16,8 @@ public class Category {
 	@Column(name = "Name")
 	private String Name;
 
-	@Column(name = "CreateDate")
-	private Date CreateDate;
-
-	@Column(name = "UpdateDate")
-	private Date UpdateDate;
-
-	@Column(name = "IsActive")
-	private Boolean IsActive;
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "Category", cascade = CascadeType.ALL)
-	private List<Post> Posts;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "Category")
+	private Set<Post> Posts = new HashSet<>();
 
 	public long getId() {
 		return Id;
@@ -43,38 +35,13 @@ public class Category {
 		Name = name;
 	}
 
-	public Date getCreateDate() {
-		return CreateDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		CreateDate = createDate;
-	}
-
-	public Date getUpdateDate() {
-		return UpdateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		UpdateDate = updateDate;
-	}
-
-	public Boolean getIsActive() {
-		return IsActive;
-	}
-
-	public void setIsActive(Boolean isActive) {
-		IsActive = isActive;
-	}
-
-	public List<Post> getPosts() {
+	public Set<Post> getPosts() {
 		return Posts;
 	}
 
-	public void setPosts(List<Post> posts) {
+	public void setPosts(Set<Post> posts) {
 		Posts = posts;
 	}
 
 	
-
 }

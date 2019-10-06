@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,13 +20,11 @@ import com.duzgun.blog.service.PostService;
 @RestController
 @RequestMapping(value = {"/post"})
 public class PostController {
-	
 	@Autowired
 	PostService postService;
 	
 	@PostMapping(value = "/create",headers = "Accept=applicateion/json")
-	public ResponseEntity<Void> createPost(@RequestBody Post post, UriComponentsBuilder ucBuilder){
-		
+	public ResponseEntity<Void> createPost(@RequestBody Post post, UriComponentsBuilder ucBuilder){		
 		postService.createPost(post);
 		HttpHeaders header = new HttpHeaders();
 		header.setLocation(ucBuilder.path("/Post/{id}").buildAndExpand(post.getId()).toUri());
@@ -37,13 +34,9 @@ public class PostController {
 	
 	//@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value = "/get", headers = "Accept=application/json")
-	public List<Post> getAllPost() {
-		
+	public List<Post> getAllPost() {		
 		List<Post> posts = postService.getPost();
 		
 		return posts;
 	}
-	
-	
-
 }

@@ -21,8 +21,7 @@ import com.duzgun.blog.service.CategoryService;;
 
 @RestController
 @RequestMapping(value = { "/category" })
-public class CategoryController {
-	
+public class CategoryController {	
 	@Autowired
 	CategoryService categoryService;
 
@@ -74,5 +73,4 @@ public class CategoryController {
 		
 		return new ResponseEntity<Category>(HttpStatus.NO_CONTENT);
 	}
-
 }

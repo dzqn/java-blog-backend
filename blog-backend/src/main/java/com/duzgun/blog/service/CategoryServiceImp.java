@@ -16,8 +16,9 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public void createCategory(Category category) {
-    	Date date = new Date();
-    	category.setCreateDate(date);
+		/*
+		 * Date date = new Date(); category.setCreateDate(date);
+		 */
     	
         categoryRepository.save(category);
     }
@@ -34,8 +35,9 @@ public class CategoryServiceImp implements CategoryService {
 
     @Override
     public Category update(Category category, long id) {
-    	Date date = new Date();
-    	category.setUpdateDate(date);
+		/*
+		 * Date date = new Date(); category.setUpdateDate(date);
+		 */
     	
         return categoryRepository.save(category);
     }
