@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
-import com.duzgun.blog.bean.Post;
+import com.duzgun.blog.model.entity.Post;
 import com.duzgun.blog.service.PostService;
 
 @RestController

@@ -2,7 +2,7 @@ package com.duzgun.blog.service;
 
 import java.util.List;
 
-import com.duzgun.blog.bean.Post;
+import com.duzgun.blog.model.entity.Post;
 
 public interface PostService {
 	public void createPost(Post post);

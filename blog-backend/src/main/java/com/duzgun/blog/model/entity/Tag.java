@@ -1,4 +1,4 @@
-package com.duzgun.blog.bean;
+package com.duzgun.blog.model.entity;
 
 import java.util.*;
 

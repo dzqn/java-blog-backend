@@ -4,7 +4,8 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.duzgun.blog.bean.Category;
+
+import com.duzgun.blog.model.entity.Category;
 import com.duzgun.blog.repository.CategoryRepository;
 
 @Service
@@ -29,12 +30,12 @@ public class CategoryServiceImp implements CategoryService {
     }
 	
     @Override
-    public Category findById(long id) {
+    public Category findCategoryById(long id) {
         return categoryRepository.findById(id).get();
     }
 
     @Override
-    public Category update(Category category, long id) {
+    public Category updateCategory(Category category, long id) {
 		/*
 		 * Date date = new Date(); category.setUpdateDate(date);
 		 */

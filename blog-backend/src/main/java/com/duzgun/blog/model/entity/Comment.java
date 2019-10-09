@@ -1,17 +1,19 @@
-package com.duzgun.blog.bean;
+package com.duzgun.blog.model.entity;
 
-import java.util.*;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 
-public class Star {
+public class Comment {
 	
 	/*
 	 * @Id
@@ -26,13 +28,11 @@ public class Star {
 	 * 
 	 * @Column private Boolean IsActive;
 	 * 
-	 * @ManyToMany(mappedBy = "Stars") private List<Post> Posts;
 	 * 
+	 * @ManyToOne(cascade = CascadeType.ALL)
 	 * 
+	 * @JoinColumn(name = "Post_Id") private Post Post;
 	 * 
-	 * public Date getCreateDate() { return CreateDate; }
-	 * 
-	 * public void setCreateDate(Date createDate) { CreateDate = createDate; }
 	 * 
 	 * public Long getId() { return Id; }
 	 * 
@@ -53,11 +53,5 @@ public class Star {
 	 * public Boolean getIsActive() { return IsActive; }
 	 * 
 	 * public void setIsActive(Boolean isActive) { IsActive = isActive; }
-	 * 
-	 * public List<Post> getPosts() { return Posts; }
-	 * 
-	 * public void setPosts(List<Post> posts) { Posts = posts; }
 	 */
-	
-
 }

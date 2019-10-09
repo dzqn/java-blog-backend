@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.duzgun.blog.bean.Post;
+import com.duzgun.blog.model.entity.Post;
 import com.duzgun.blog.repository.PostRepository;
 
 @Service
