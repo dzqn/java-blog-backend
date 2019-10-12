@@ -17,25 +17,25 @@ import com.duzgun.blog.model.entity.Post;
 import com.duzgun.blog.service.PostService;
 
 @RestController
-@RequestMapping(value = {"/post"})
+@RequestMapping(value = { "/post" })
 public class PostController {
+
 	@Autowired
 	PostService postService;
-	
-	@PostMapping(value = "/create",headers = "Accept=applicateion/json")
-	public ResponseEntity<Void> createPost(@RequestBody Post post, UriComponentsBuilder ucBuilder){		
+
+	@PostMapping
+	public ResponseEntity<Void> createPost(@RequestBody Post post, UriComponentsBuilder ucBuilder) {
 		postService.createPost(post);
 		HttpHeaders header = new HttpHeaders();
 		header.setLocation(ucBuilder.path("/Post/{id}").buildAndExpand(post.getId()).toUri());
-		
-		return new ResponseEntity<Void>(header,HttpStatus.CREATED);
+
+		return new ResponseEntity<Void>(header, HttpStatus.CREATED);
 	}
-	
-	//@CrossOrigin(origins = "http://localhost:4200")
-	@GetMapping(value = "/get", headers = "Accept=application/json")
-	public List<Post> getAllPost() {		
+
+	@GetMapping
+	public List<Post> getAllPost() {
 		List<Post> posts = postService.getPost();
-		
+
 		return posts;
 	}
 }
