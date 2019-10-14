@@ -1,11 +1,12 @@
-package com.duzgun.blog.model.dto;
+package com.duzgun.blog.model.Request;
 
 import javax.validation.constraints.NotNull;
 
-public class CategoryDto {
+public class RequestCreateCategory {
 	@NotNull
 	private Long Id;
-	@NotNull(message = "Category name boş olamaz!")
+	
+	@NotNull(message = "İsim boş geçilemez")
 	private String Name;
 	
 	public Long getId() {

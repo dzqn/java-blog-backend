@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.duzgun.blog.model.dto.CategoryDto;
+import com.duzgun.blog.model.Response.ResponseGetAllCategory;
 import com.duzgun.blog.model.entity.Category;
 import com.duzgun.blog.repository.CategoryRepository;
 
@@ -27,12 +27,12 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override
-	public List<CategoryDto> getAllCategory() {
+	public List<ResponseGetAllCategory> getAllCategory() {
 
 		List<Category> allCategories = (List<Category>) categoryRepository.findAll();
 
-		List<CategoryDto> result = allCategories.stream().map(x -> {
-			CategoryDto c = new CategoryDto();
+		List<ResponseGetAllCategory> result = allCategories.stream().map(x -> {
+			ResponseGetAllCategory c = new ResponseGetAllCategory();
 			c.setName(x.getName());
 			return c;
 		}).collect(Collectors.toList());
