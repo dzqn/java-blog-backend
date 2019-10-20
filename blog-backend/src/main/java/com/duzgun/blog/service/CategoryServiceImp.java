@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.duzgun.blog.model.Response.ResponseCreateCategory;
-import com.duzgun.blog.model.Response.ResponseGetAllCategory;
+import com.duzgun.blog.model.Response.ResponseGetCategory;
 import com.duzgun.blog.model.entity.Category;
 import com.duzgun.blog.repository.CategoryRepository;
 
@@ -31,11 +31,11 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override
-	public List<ResponseGetAllCategory> getAllCategory() {
+	public List<ResponseGetCategory> getAllCategory() {
 		List<Category> allCategories = (List<Category>) categoryRepository.findAll();
 
-		List<ResponseGetAllCategory> result = allCategories.stream().map(x -> {
-			ResponseGetAllCategory c = new ResponseGetAllCategory();
+		List<ResponseGetCategory> result = allCategories.stream().map(x -> {
+			ResponseGetCategory c = new ResponseGetCategory();
 			c.setId(x.getId());
 			c.setName(x.getName());
 			return c;

@@ -1,6 +1,6 @@
 package com.duzgun.blog.model.Response;
 
-public class ResponseGetAllCategory {
+public class ResponseGetCategory {
 	
 	private Long Id;
 	private String Name;

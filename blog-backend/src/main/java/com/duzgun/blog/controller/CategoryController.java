@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.duzgun.blog.model.Response.ResponseCreateCategory;
-import com.duzgun.blog.model.Response.ResponseGetAllCategory;
+import com.duzgun.blog.model.Response.ResponseGetCategory;
 import com.duzgun.blog.model.entity.Category;
 import com.duzgun.blog.service.CategoryService;;
 
@@ -40,11 +40,11 @@ public class CategoryController {
 	}
 
 	@GetMapping
-	public List<ResponseGetAllCategory> getAllCategory(
+	public List<ResponseGetCategory> getAllCategory(
 			@RequestParam(value = "page", defaultValue = "1") String page,
 			@RequestParam(value = "limit", defaultValue = "25") String limit,
 			@RequestParam(value = "sort", defaultValue = "asc") String sort) {
-		List<ResponseGetAllCategory> categories = categoryService.getAllCategory();
+		List<ResponseGetCategory> categories = categoryService.getAllCategory();
 
 		return categories;
 	}
