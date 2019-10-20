@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.duzgun.blog.model.Response.ResponseCreateCategory;
 import com.duzgun.blog.model.Response.ResponseGetAllCategory;
 import com.duzgun.blog.model.entity.Category;
 import com.duzgun.blog.repository.CategoryRepository;
@@ -19,16 +20,18 @@ public class CategoryServiceImp implements CategoryService {
 	CategoryRepository categoryRepository;
 
 	@Override
-	public void createCategory(Category category) {
-		/*
-		 * Date date = new Date(); category.setCreateDate(date);
-		 */
-		categoryRepository.save(category);
+	public ResponseCreateCategory createCategory(Category category) {
+		ResponseCreateCategory savedCategory = new ResponseCreateCategory();
+		Category scategory =	categoryRepository.save(category);
+		
+		savedCategory.setId(scategory.getId());
+		savedCategory.setName(scategory.getName());
+		
+		return savedCategory;
 	}
 
 	@Override
 	public List<ResponseGetAllCategory> getAllCategory() {
-
 		List<Category> allCategories = (List<Category>) categoryRepository.findAll();
 
 		List<ResponseGetAllCategory> result = allCategories.stream().map(x -> {
@@ -47,10 +50,6 @@ public class CategoryServiceImp implements CategoryService {
 
 	@Override
 	public Category updateCategory(Category category, long id) {
-		/*
-		 * Date date = new Date(); category.setUpdateDate(date);
-		 */
-
 		return categoryRepository.save(category);
 	}
 

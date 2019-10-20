@@ -2,12 +2,13 @@ package com.duzgun.blog.service;
 
 import java.util.List;
 
+import com.duzgun.blog.model.Response.ResponseCreateCategory;
 import com.duzgun.blog.model.Response.ResponseGetAllCategory;
 import com.duzgun.blog.model.entity.Category;;
 
 
 public interface CategoryService {
-	public void createCategory(Category category);
+	public ResponseCreateCategory createCategory(Category category);
     public List<ResponseGetAllCategory> getAllCategory();
     public Category findCategoryById(long id);
     public Category updateCategory(Category category, long id);

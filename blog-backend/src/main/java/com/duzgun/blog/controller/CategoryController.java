@@ -1,6 +1,5 @@
 package com.duzgun.blog.controller;
 
-import java.awt.PageAttributes.MediaType;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.duzgun.blog.model.Response.ResponseCreateCategory;
 import com.duzgun.blog.model.Response.ResponseGetAllCategory;
 import com.duzgun.blog.model.entity.Category;
 import com.duzgun.blog.service.CategoryService;;
@@ -29,51 +29,51 @@ public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
 
-	@PostMapping
-	public ResponseEntity<Void> createCategory(@RequestBody Category category, UriComponentsBuilder ucBuilder) {
-		categoryService.createCategory(category);
+	@PostMapping(value = "/create", headers = "Accept=application/json")
+	public ResponseEntity<ResponseCreateCategory> createCategory(@RequestBody Category category, UriComponentsBuilder ucBuilder) {
+		ResponseCreateCategory savedCategory = categoryService.createCategory(category);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/Category/{id}").buildAndExpand(category.getId()).toUri());
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<ResponseCreateCategory>(savedCategory, headers, HttpStatus.CREATED);
 	}
 
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<Category> getCategoryById(@PathVariable("id") long id) {
-		Category category = categoryService.findCategoryById(id);
+	/*
+	 * @GetMapping public List<ResponseGetAllCategory>
+	 * getAllCategory(@RequestParam(value = "page", defaultValue = "1") int page,
+	 * 
+	 * @RequestParam(value = "limit", defaultValue = "25") int limit,
+	 * 
+	 * @RequestParam(value = "sort", defaultValue = "asc") int sort) {
+	 * List<ResponseGetAllCategory> categories = categoryService.getAllCategory();
+	 * 
+	 * return categories; }
+	 * 
+	 * @GetMapping(value = "/{id}") public ResponseEntity<Category>
+	 * getCategoryById(@PathVariable("id") long id) { Category category =
+	 * categoryService.findCategoryById(id);
+	 * 
+	 * if (category == null) return new
+	 * ResponseEntity<Category>(HttpStatus.NOT_FOUND); return new
+	 * ResponseEntity<Category>(category, HttpStatus.OK); }
+	 */
 
-		if (category == null)
-			return new ResponseEntity<Category>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<Category>(category, HttpStatus.OK);
-	}
-
-	@GetMapping
-	public List<ResponseGetAllCategory> getAllCategory(@RequestParam(value = "page", defaultValue = "1") int page,
-			@RequestParam(value = "limit", defaultValue = "25") int limit,
-			@RequestParam(value = "sort", defaultValue = "asc") int sort) {
-		List<ResponseGetAllCategory> categories = categoryService.getAllCategory();
-
-		return categories;
-	}
-
-	@PutMapping
-	public ResponseEntity<String> updateCategory(@RequestBody Category currentCategory) {
-		Category Category = categoryService.findCategoryById(currentCategory.getId());
-		if (Category == null)
-			return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
-		categoryService.updateCategory(currentCategory, currentCategory.getId());
-
-		return new ResponseEntity<String>(HttpStatus.OK);
-	}
-
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Category> deleteCategory(@PathVariable("id") long id) {
-		Category Category = categoryService.findCategoryById(id);
-		if (Category == null)
-			return new ResponseEntity<Category>(HttpStatus.NOT_FOUND);
-		categoryService.deleteCategoryById(id);
-
-		return new ResponseEntity<Category>(HttpStatus.NO_CONTENT);
-	}
+	/*
+	 * @PutMapping public ResponseEntity<String> updateCategory(@RequestBody
+	 * Category currentCategory) { Category Category =
+	 * categoryService.findCategoryById(currentCategory.getId()); if (Category ==
+	 * null) return new ResponseEntity<String>(HttpStatus.NOT_FOUND);
+	 * categoryService.updateCategory(currentCategory, currentCategory.getId());
+	 * 
+	 * return new ResponseEntity<String>(HttpStatus.OK); }
+	 * 
+	 * @DeleteMapping(value = "/{id}") public ResponseEntity<Category>
+	 * deleteCategory(@PathVariable("id") long id) { Category Category =
+	 * categoryService.findCategoryById(id); if (Category == null) return new
+	 * ResponseEntity<Category>(HttpStatus.NOT_FOUND);
+	 * categoryService.deleteCategoryById(id);
+	 * 
+	 * return new ResponseEntity<Category>(HttpStatus.NO_CONTENT); }
+	 */
 
 }
