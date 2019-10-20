@@ -29,8 +29,9 @@ public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
 
-	@PostMapping(value = "/create", headers = "Accept=application/json")
-	public ResponseEntity<ResponseCreateCategory> createCategory(@RequestBody Category category, UriComponentsBuilder ucBuilder) {
+	@PostMapping(headers = "Accept=application/json")
+	public ResponseEntity<ResponseCreateCategory> createCategory(@RequestBody Category category,
+			UriComponentsBuilder ucBuilder) {
 		ResponseCreateCategory savedCategory = categoryService.createCategory(category);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -38,17 +39,17 @@ public class CategoryController {
 		return new ResponseEntity<ResponseCreateCategory>(savedCategory, headers, HttpStatus.CREATED);
 	}
 
+	@GetMapping
+	public List<ResponseGetAllCategory> getAllCategory(
+			@RequestParam(value = "page", defaultValue = "1") String page,
+			@RequestParam(value = "limit", defaultValue = "25") String limit,
+			@RequestParam(value = "sort", defaultValue = "asc") String sort) {
+		List<ResponseGetAllCategory> categories = categoryService.getAllCategory();
+
+		return categories;
+	}
+
 	/*
-	 * @GetMapping public List<ResponseGetAllCategory>
-	 * getAllCategory(@RequestParam(value = "page", defaultValue = "1") int page,
-	 * 
-	 * @RequestParam(value = "limit", defaultValue = "25") int limit,
-	 * 
-	 * @RequestParam(value = "sort", defaultValue = "asc") int sort) {
-	 * List<ResponseGetAllCategory> categories = categoryService.getAllCategory();
-	 * 
-	 * return categories; }
-	 * 
 	 * @GetMapping(value = "/{id}") public ResponseEntity<Category>
 	 * getCategoryById(@PathVariable("id") long id) { Category category =
 	 * categoryService.findCategoryById(id);

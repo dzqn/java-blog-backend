@@ -36,6 +36,7 @@ public class CategoryServiceImp implements CategoryService {
 
 		List<ResponseGetAllCategory> result = allCategories.stream().map(x -> {
 			ResponseGetAllCategory c = new ResponseGetAllCategory();
+			c.setId(x.getId());
 			c.setName(x.getName());
 			return c;
 		}).collect(Collectors.toList());
