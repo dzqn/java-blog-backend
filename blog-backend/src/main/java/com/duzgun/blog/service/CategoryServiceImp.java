@@ -22,11 +22,11 @@ public class CategoryServiceImp implements CategoryService {
 	@Override
 	public ResponseCreateCategory createCategory(Category category) {
 		ResponseCreateCategory savedCategory = new ResponseCreateCategory();
-		Category scategory =	categoryRepository.save(category);
-		
+		Category scategory = categoryRepository.save(category);
+
 		savedCategory.setId(scategory.getId());
 		savedCategory.setName(scategory.getName());
-		
+
 		return savedCategory;
 	}
 
@@ -45,8 +45,19 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override
-	public Category findCategoryById(long id) {
-		return categoryRepository.findById(id).get();
+	public ResponseGetCategory findCategoryById(long id) {
+
+		Optional<Category> category = categoryRepository.findById(id);
+
+		if (category.isEmpty())
+			return null;
+		else
+			return category.map(x -> {
+				ResponseGetCategory c = new ResponseGetCategory();
+				c.setId(x.getId());
+				c.setName(x.getName());
+				return c;
+			}).get();
 	}
 
 	@Override

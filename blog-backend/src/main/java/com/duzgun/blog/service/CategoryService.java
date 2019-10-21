@@ -10,7 +10,7 @@ import com.duzgun.blog.model.entity.Category;;
 public interface CategoryService {
 	public ResponseCreateCategory createCategory(Category category);
     public List<ResponseGetCategory> getAllCategory();
-    public Category findCategoryById(long id);
+    public ResponseGetCategory findCategoryById(long id);
     public Category updateCategory(Category category, long id);
     public void deleteCategoryById(long id);
 }

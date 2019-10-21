@@ -40,8 +40,7 @@ public class CategoryController {
 	}
 
 	@GetMapping
-	public List<ResponseGetCategory> getAllCategory(
-			@RequestParam(value = "page", defaultValue = "1") String page,
+	public List<ResponseGetCategory> getAllCategory(@RequestParam(value = "page", defaultValue = "1") String page,
 			@RequestParam(value = "limit", defaultValue = "25") String limit,
 			@RequestParam(value = "sort", defaultValue = "asc") String sort) {
 		List<ResponseGetCategory> categories = categoryService.getAllCategory();
@@ -49,15 +48,14 @@ public class CategoryController {
 		return categories;
 	}
 
-	/*
-	 * @GetMapping(value = "/{id}") public ResponseEntity<Category>
-	 * getCategoryById(@PathVariable("id") long id) { Category category =
-	 * categoryService.findCategoryById(id);
-	 * 
-	 * if (category == null) return new
-	 * ResponseEntity<Category>(HttpStatus.NOT_FOUND); return new
-	 * ResponseEntity<Category>(category, HttpStatus.OK); }
-	 */
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<ResponseGetCategory> getCategoryById(@PathVariable("id") long id) {
+		ResponseGetCategory category = categoryService.findCategoryById(id);
+
+		if (category == null)
+			return new ResponseEntity<ResponseGetCategory>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<ResponseGetCategory>(category, HttpStatus.OK);
+	}
 
 	/*
 	 * @PutMapping public ResponseEntity<String> updateCategory(@RequestBody
@@ -67,14 +65,16 @@ public class CategoryController {
 	 * categoryService.updateCategory(currentCategory, currentCategory.getId());
 	 * 
 	 * return new ResponseEntity<String>(HttpStatus.OK); }
-	 * 
-	 * @DeleteMapping(value = "/{id}") public ResponseEntity<Category>
-	 * deleteCategory(@PathVariable("id") long id) { Category Category =
-	 * categoryService.findCategoryById(id); if (Category == null) return new
-	 * ResponseEntity<Category>(HttpStatus.NOT_FOUND);
-	 * categoryService.deleteCategoryById(id);
-	 * 
-	 * return new ResponseEntity<Category>(HttpStatus.NO_CONTENT); }
 	 */
+
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<ResponseGetCategory> deleteCategory(@PathVariable("id") long id) {
+		ResponseGetCategory Category = categoryService.findCategoryById(id);
+		if (Category == null)
+			return new ResponseEntity<ResponseGetCategory>(HttpStatus.NOT_FOUND);
+		
+		categoryService.deleteCategoryById(id);
+		return new ResponseEntity<ResponseGetCategory>(HttpStatus.OK);
+	}
 
 }
