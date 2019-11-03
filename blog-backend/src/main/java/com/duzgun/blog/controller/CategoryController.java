@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +28,7 @@ public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
 
-	@PostMapping(headers = "Accept=application/json")
+	@PostMapping
 	public ResponseEntity<ResponseCreateCategory> createCategory(@RequestBody Category category,
 			UriComponentsBuilder ucBuilder) {
 		ResponseCreateCategory savedCategory = categoryService.createCategory(category);
@@ -72,7 +71,7 @@ public class CategoryController {
 		ResponseGetCategory Category = categoryService.findCategoryById(id);
 		if (Category == null)
 			return new ResponseEntity<ResponseGetCategory>(HttpStatus.NOT_FOUND);
-		
+
 		categoryService.deleteCategoryById(id);
 		return new ResponseEntity<ResponseGetCategory>(HttpStatus.OK);
 	}
