@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,12 +24,12 @@ import com.duzgun.blog.service.CategoryService;;
 
 @RestController
 @RequestMapping(value = { "/category" })
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
-
-	@PostMapping
+	
+    @PostMapping
 	public ResponseEntity<ResponseCreateCategory> createCategory(@RequestBody Category category,
 			UriComponentsBuilder ucBuilder) {
 		ResponseCreateCategory savedCategory = categoryService.createCategory(category);
@@ -42,8 +43,8 @@ public class CategoryController {
 	public List<ResponseGetCategory> getAllCategory(@RequestParam(value = "page", defaultValue = "1") String page,
 			@RequestParam(value = "limit", defaultValue = "25") String limit,
 			@RequestParam(value = "sort", defaultValue = "asc") String sort) {
-		List<ResponseGetCategory> categories = categoryService.getAllCategory();
 
+		List<ResponseGetCategory> categories = categoryService.getAllCategory();
 		return categories;
 	}
 

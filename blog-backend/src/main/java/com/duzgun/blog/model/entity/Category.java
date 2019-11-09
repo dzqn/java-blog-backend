@@ -1,6 +1,5 @@
 package com.duzgun.blog.model.entity;
 
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +8,8 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "Category")
-public class Category implements Serializable {
+public class Category  extends BaseEntity {
+
 
 	@Column(name = "Id", nullable = false)
 	@Id
