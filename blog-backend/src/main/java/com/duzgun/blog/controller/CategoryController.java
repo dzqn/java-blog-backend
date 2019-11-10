@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.duzgun.blog.model.Request.RequestCreateCategory;
 import com.duzgun.blog.model.Response.ResponseCreateCategory;
 import com.duzgun.blog.model.Response.ResponseGetCategory;
 import com.duzgun.blog.model.entity.Category;
@@ -28,9 +29,10 @@ import com.duzgun.blog.service.CategoryService;;
 public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
-	
-    @PostMapping
-	public ResponseEntity<ResponseCreateCategory> createCategory(@RequestBody Category category,
+
+	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = {
+			MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public ResponseEntity<ResponseCreateCategory> createCategory(@RequestBody RequestCreateCategory category,
 			UriComponentsBuilder ucBuilder) {
 		ResponseCreateCategory savedCategory = categoryService.createCategory(category);
 

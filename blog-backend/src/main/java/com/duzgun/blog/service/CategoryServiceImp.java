@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.duzgun.blog.model.Request.RequestCreateCategory;
 import com.duzgun.blog.model.Response.ResponseCreateCategory;
 import com.duzgun.blog.model.Response.ResponseGetCategory;
 import com.duzgun.blog.model.entity.Category;
@@ -20,13 +21,17 @@ public class CategoryServiceImp implements CategoryService {
 	CategoryRepository categoryRepository;
 
 	@Override
-	public ResponseCreateCategory createCategory(Category category) {
+	public ResponseCreateCategory createCategory(RequestCreateCategory category) {
 		
 		ResponseCreateCategory savedCategory = new ResponseCreateCategory();
-		Category scategory = categoryRepository.save(category);
+		
+		Category saveCategory = new Category();
+		saveCategory.setName(category.getName());
+		
+		categoryRepository.save(saveCategory);
 
-		savedCategory.setId(scategory.getId());
-		savedCategory.setName(scategory.getName());
+		savedCategory.setId(saveCategory.getId());
+		savedCategory.setName(saveCategory.getName());
 
 		return savedCategory;
 	}
