@@ -30,8 +30,8 @@ public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
 
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = {
-			MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, 
+			produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<ResponseCreateCategory> createCategory(@RequestBody RequestCreateCategory category,
 			UriComponentsBuilder ucBuilder) {
 		ResponseCreateCategory savedCategory = categoryService.createCategory(category);
@@ -68,14 +68,15 @@ public class CategoryController {
 	 * 
 	 * return new ResponseEntity<String>(HttpStatus.OK); }
 	 */
+	
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<ResponseGetCategory> deleteCategory(@PathVariable("id") long id) {
-		ResponseGetCategory Category = categoryService.findCategoryById(id);
+	public ResponseEntity<ResponseGetCategory> deleteCategory(@PathVariable("id") String id) {
+		ResponseGetCategory Category = categoryService.findCategoryById(Long.parseLong(id));
 		if (Category == null)
 			return new ResponseEntity<ResponseGetCategory>(HttpStatus.NOT_FOUND);
 
-		categoryService.deleteCategoryById(id);
+		categoryService.deleteCategoryById(Long.parseLong(id));
 		return new ResponseEntity<ResponseGetCategory>(HttpStatus.OK);
 	}
 
