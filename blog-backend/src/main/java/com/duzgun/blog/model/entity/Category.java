@@ -1,5 +1,6 @@
 package com.duzgun.blog.model.entity;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "Category")
-public class Category  extends BaseEntity {
+public class Category {
 
 
 	@Column(name = "Id", nullable = false)
@@ -19,6 +20,15 @@ public class Category  extends BaseEntity {
 	@Column(name = "Name")
 	@NotBlank(message = "Enter a Name ")
 	private String Name;
+	
+	@Column
+	private Date CreateDate;
+
+	@Column
+	private Date UpdateDate;
+
+	@Column
+	private Boolean IsActive;
 
 	@OneToMany(mappedBy = "Category", fetch = FetchType.LAZY)
 	private Set<Post> Posts = new HashSet<>();
@@ -51,6 +61,30 @@ public class Category  extends BaseEntity {
 	// @JsonIgnore
 	public void setPosts(Set<Post> posts) {
 		Posts = posts;
+	}
+	
+	public Date getCreateDate() {
+		return CreateDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		CreateDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return UpdateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		UpdateDate = updateDate;
+	}
+
+	public Boolean getIsActive() {
+		return IsActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		IsActive = isActive;
 	}
 
 }

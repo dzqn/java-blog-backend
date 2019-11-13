@@ -21,19 +21,23 @@ public class CategoryServiceImp implements CategoryService {
 	CategoryRepository categoryRepository;
 
 	@Override
-	public ResponseCreateCategory createCategory(RequestCreateCategory category) {
-		
-		ResponseCreateCategory savedCategory = new ResponseCreateCategory();
-		
+	public ResponseCreateCategory createCategory(RequestCreateCategory category) {	
+		Date createdDate = new Date(); 
 		Category saveCategory = new Category();
 		saveCategory.setName(category.getName());
+		saveCategory.setCreateDate(createdDate);
+		saveCategory.setIsActive(category.getIsActive());
 		
 		categoryRepository.save(saveCategory);
 
-		savedCategory.setId(saveCategory.getId());
-		savedCategory.setName(saveCategory.getName());
+		ResponseCreateCategory resultCategory = new ResponseCreateCategory();
+		resultCategory.setId(saveCategory.getId());
+		resultCategory.setName(saveCategory.getName());
+		resultCategory.setCreateDate(saveCategory.getCreateDate());
+		resultCategory.setUpdateDate(saveCategory.getUpdateDate());
+		resultCategory.setIsActive(saveCategory.getIsActive());
 
-		return savedCategory;
+		return resultCategory;
 	}
 
 	@Override
@@ -44,6 +48,9 @@ public class CategoryServiceImp implements CategoryService {
 			ResponseGetCategory c = new ResponseGetCategory();
 			c.setId(x.getId());
 			c.setName(x.getName());
+			c.setCreateDate(x.getCreateDate());
+			c.setUpdateDate(x.getUpdateDate());
+			c.setIsActive(x.getIsActive());
 			return c;
 		}).collect(Collectors.toList());
 
@@ -52,7 +59,6 @@ public class CategoryServiceImp implements CategoryService {
 
 	@Override
 	public ResponseGetCategory findCategoryById(long id) {
-
 		Optional<Category> category = categoryRepository.findById(id);
 
 		if (category.isEmpty())
@@ -62,6 +68,9 @@ public class CategoryServiceImp implements CategoryService {
 				ResponseGetCategory c = new ResponseGetCategory();
 				c.setId(x.getId());
 				c.setName(x.getName());
+				c.setCreateDate(x.getCreateDate());
+				c.setUpdateDate(x.getUpdateDate());
+				c.setIsActive(x.getIsActive());
 				return c;
 			}).get();
 	}

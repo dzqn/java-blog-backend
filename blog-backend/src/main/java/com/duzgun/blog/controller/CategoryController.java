@@ -20,7 +20,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.duzgun.blog.model.Request.RequestCreateCategory;
 import com.duzgun.blog.model.Response.ResponseCreateCategory;
 import com.duzgun.blog.model.Response.ResponseGetCategory;
-import com.duzgun.blog.model.entity.Category;
 import com.duzgun.blog.service.CategoryService;;
 
 @RestController
@@ -30,10 +29,10 @@ public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
 
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, 
+	@PostMapping(
+			consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, 
 			produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<ResponseCreateCategory> createCategory(@RequestBody RequestCreateCategory category,
-			UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<ResponseCreateCategory> createCategory(@RequestBody RequestCreateCategory category,UriComponentsBuilder ucBuilder) {
 		ResponseCreateCategory savedCategory = categoryService.createCategory(category);
 
 		HttpHeaders headers = new HttpHeaders();
@@ -42,10 +41,10 @@ public class CategoryController {
 	}
 
 	@GetMapping
-	public List<ResponseGetCategory> getAllCategory(@RequestParam(value = "page", defaultValue = "1") String page,
+	public List<ResponseGetCategory> getAllCategory(
+			@RequestParam(value = "page", defaultValue = "1") String page,
 			@RequestParam(value = "limit", defaultValue = "25") String limit,
 			@RequestParam(value = "sort", defaultValue = "asc") String sort) {
-
 		List<ResponseGetCategory> categories = categoryService.getAllCategory();
 		return categories;
 	}
@@ -68,7 +67,6 @@ public class CategoryController {
 	 * 
 	 * return new ResponseEntity<String>(HttpStatus.OK); }
 	 */
-	
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<ResponseGetCategory> deleteCategory(@PathVariable("id") String id) {

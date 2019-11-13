@@ -6,6 +6,8 @@ public class RequestCreateCategory {
 	
 	private String Name;
 	
+	private Boolean IsActive;
+	
 	public long getId() {
 		return Id;
 	}
@@ -18,5 +20,11 @@ public class RequestCreateCategory {
 	}
 	public void setName(String name) {
 		Name = name;
+	}
+	public Boolean getIsActive() {
+		return IsActive;
+	}
+	public void setIsActive(Boolean isActive) {
+		IsActive = isActive;
 	}
 }
