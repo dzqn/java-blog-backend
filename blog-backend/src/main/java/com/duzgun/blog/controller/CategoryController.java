@@ -58,6 +58,7 @@ public class CategoryController {
 		return new ResponseEntity<ResponseGetCategory>(category, HttpStatus.OK);
 	}
 
+	
 	/*
 	 * @PutMapping public ResponseEntity<String> updateCategory(@RequestBody
 	 * Category currentCategory) { Category Category =
@@ -67,6 +68,7 @@ public class CategoryController {
 	 * 
 	 * return new ResponseEntity<String>(HttpStatus.OK); }
 	 */
+	 
 
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<ResponseGetCategory> deleteCategory(@PathVariable("id") String id) {

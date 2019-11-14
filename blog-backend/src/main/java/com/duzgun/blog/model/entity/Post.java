@@ -1,6 +1,7 @@
 package com.duzgun.blog.model.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -10,13 +11,14 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "Post")
 public class Post  implements Serializable
 {
 
-	@Column(name = "Id", nullable = false)
 	@Id
+	@Column(name = "Id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long Id;
 
@@ -26,6 +28,15 @@ public class Post  implements Serializable
 
 	@Column
 	private String Body;
+	
+	@Column
+	private Date CreateDate;
+
+	@Column
+	private Date UpdateDate;
+
+	@Column
+	private Boolean IsActive;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "Category_Id", nullable = false)
@@ -33,7 +44,6 @@ public class Post  implements Serializable
 	private Category Category;
 
 	public Post() {
-
 	}
 
 	public Long getId() {
@@ -76,5 +86,29 @@ public class Post  implements Serializable
 
 	public String getCategory_Name() {
 		return Category.getName();
+	}
+	
+	public Date getCreateDate() {
+		return CreateDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		CreateDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return UpdateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		UpdateDate = updateDate;
+	}
+
+	public Boolean getIsActive() {
+		return IsActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		IsActive = isActive;
 	}
 }
