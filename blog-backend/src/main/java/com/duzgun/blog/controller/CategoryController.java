@@ -29,9 +29,7 @@ public class CategoryController {
 	@Autowired
 	CategoryService categoryService;
 
-	@PostMapping(
-			consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, 
-			produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<ResponseCreateCategory> createCategory(@RequestBody RequestCreateCategory category,UriComponentsBuilder ucBuilder) {
 		ResponseCreateCategory savedCategory = categoryService.createCategory(category);
 
@@ -41,10 +39,7 @@ public class CategoryController {
 	}
 
 	@GetMapping
-	public List<ResponseGetCategory> getAllCategory(
-			@RequestParam(value = "page", defaultValue = "1") String page,
-			@RequestParam(value = "limit", defaultValue = "25") String limit,
-			@RequestParam(value = "sort", defaultValue = "asc") String sort) {
+	public List<ResponseGetCategory> getAllCategory(@RequestParam(value = "page", defaultValue = "1") String page, @RequestParam(value = "limit", defaultValue = "25") String limit, @RequestParam(value = "sort", defaultValue = "asc") String sort) {
 		List<ResponseGetCategory> categories = categoryService.getAllCategory();
 		return categories;
 	}
