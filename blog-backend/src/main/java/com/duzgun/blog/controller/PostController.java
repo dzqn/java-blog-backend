@@ -24,12 +24,10 @@ import com.duzgun.blog.service.PostService;
 @RequestMapping(value = { "/post" })
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PostController {
-
 	@Autowired
 	PostService postService;
 
-	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, 
-			     produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public ResponseEntity<ResponseCreatePost> createPost(@RequestBody RequestCreatePost post, UriComponentsBuilder ucBuilder) {
 		ResponseCreatePost savedPost = postService.createPost(post);
 		
