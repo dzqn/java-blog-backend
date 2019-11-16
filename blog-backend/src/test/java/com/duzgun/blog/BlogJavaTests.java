@@ -1,7 +1,7 @@
 package com.duzgun.blog;
 
 
-public class CourseMvc1ApplicationTests {
+public class BlogJavaTests {
 	public void contextLoads() {
 	}
 }

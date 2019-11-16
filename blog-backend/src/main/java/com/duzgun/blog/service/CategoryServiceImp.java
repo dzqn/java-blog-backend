@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.duzgun.blog.model.Request.RequestCreateCategory;
-import com.duzgun.blog.model.Response.ResponseCreateCategory;
-import com.duzgun.blog.model.Response.ResponseGetCategory;
+import com.duzgun.blog.model.Request.CategoryCreateRequest;
+import com.duzgun.blog.model.Response.CategoryCreateResponse;
+import com.duzgun.blog.model.Response.CategoryGetResponse;
 import com.duzgun.blog.model.entity.Category;
 import com.duzgun.blog.repository.CategoryRepository;
 
@@ -21,7 +21,7 @@ public class CategoryServiceImp implements CategoryService {
 	CategoryRepository categoryRepository;
 
 	@Override
-	public ResponseCreateCategory createCategory(RequestCreateCategory category) {	
+	public CategoryCreateResponse createCategory(CategoryCreateRequest category) {	
 		Date createdDate = new Date(); 
 		Category saveCategory = new Category();
 		saveCategory.setName(category.getName());
@@ -30,7 +30,7 @@ public class CategoryServiceImp implements CategoryService {
 		
 		categoryRepository.save(saveCategory);
 
-		ResponseCreateCategory resultCategory = new ResponseCreateCategory();
+		CategoryCreateResponse resultCategory = new CategoryCreateResponse();
 		resultCategory.setId(saveCategory.getId());
 		resultCategory.setName(saveCategory.getName());
 		resultCategory.setCreateDate(saveCategory.getCreateDate());
@@ -41,11 +41,11 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override
-	public List<ResponseGetCategory> getAllCategory() {
+	public List<CategoryGetResponse> getAllCategory() {
 		List<Category> allCategories = (List<Category>) categoryRepository.findAll();
 
-		List<ResponseGetCategory> result = allCategories.stream().map(x -> {
-			ResponseGetCategory c = new ResponseGetCategory();
+		List<CategoryGetResponse> result = allCategories.stream().map(x -> {
+			CategoryGetResponse c = new CategoryGetResponse();
 			c.setId(x.getId());
 			c.setName(x.getName());
 			c.setCreateDate(x.getCreateDate());
@@ -58,14 +58,14 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override
-	public ResponseGetCategory findCategoryById(long id) {
+	public CategoryGetResponse findCategoryById(long id) {
 		Optional<Category> category = categoryRepository.findById(id);
 
 		if (category.isEmpty())
 			return null;
 		else
 			return category.map(x -> {
-				ResponseGetCategory c = new ResponseGetCategory();
+				CategoryGetResponse c = new CategoryGetResponse();
 				c.setId(x.getId());
 				c.setName(x.getName());
 				c.setCreateDate(x.getCreateDate());

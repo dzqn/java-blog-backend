@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.duzgun.blog.model.Request.RequestCreateCategory;
-import com.duzgun.blog.model.Response.ResponseCreateCategory;
-import com.duzgun.blog.model.Response.ResponseGetCategory;
+import com.duzgun.blog.model.Request.CategoryCreateRequest;
+import com.duzgun.blog.model.Response.CategoryCreateResponse;
+import com.duzgun.blog.model.Response.CategoryGetResponse;
 import com.duzgun.blog.service.CategoryService;;
 
 @RestController
@@ -30,27 +30,27 @@ public class CategoryController {
 	CategoryService categoryService;
 
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<ResponseCreateCategory> createCategory(@RequestBody RequestCreateCategory category,UriComponentsBuilder ucBuilder) {
-		ResponseCreateCategory savedCategory = categoryService.createCategory(category);
+	public ResponseEntity<CategoryCreateResponse> createCategory(@RequestBody CategoryCreateRequest category,UriComponentsBuilder ucBuilder) {
+		CategoryCreateResponse savedCategory = categoryService.createCategory(category);
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/Category/{id}").buildAndExpand(category.getId()).toUri());
-		return new ResponseEntity<ResponseCreateCategory>(savedCategory, headers, HttpStatus.CREATED);
+		return new ResponseEntity<CategoryCreateResponse>(savedCategory, headers, HttpStatus.CREATED);
 	}
 
 	@GetMapping
-	public List<ResponseGetCategory> getAllCategory(@RequestParam(value = "page", defaultValue = "1") String page, @RequestParam(value = "limit", defaultValue = "25") String limit, @RequestParam(value = "sort", defaultValue = "asc") String sort) {
-		List<ResponseGetCategory> categories = categoryService.getAllCategory();
+	public List<CategoryGetResponse> getAllCategory(@RequestParam(value = "page", defaultValue = "1") String page, @RequestParam(value = "limit", defaultValue = "25") String limit, @RequestParam(value = "sort", defaultValue = "asc") String sort) {
+		List<CategoryGetResponse> categories = categoryService.getAllCategory();
 		return categories;
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<ResponseGetCategory> getCategoryById(@PathVariable("id") long id) {
-		ResponseGetCategory category = categoryService.findCategoryById(id);
+	public ResponseEntity<CategoryGetResponse> getCategoryById(@PathVariable("id") long id) {
+		CategoryGetResponse category = categoryService.findCategoryById(id);
 
 		if (category == null)
-			return new ResponseEntity<ResponseGetCategory>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<ResponseGetCategory>(category, HttpStatus.OK);
+			return new ResponseEntity<CategoryGetResponse>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<CategoryGetResponse>(category, HttpStatus.OK);
 	}
 
 	
@@ -66,13 +66,13 @@ public class CategoryController {
 	 
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<ResponseGetCategory> deleteCategory(@PathVariable("id") String id) {
-		ResponseGetCategory Category = categoryService.findCategoryById(Long.parseLong(id));
+	public ResponseEntity<CategoryGetResponse> deleteCategory(@PathVariable("id") String id) {
+		CategoryGetResponse Category = categoryService.findCategoryById(Long.parseLong(id));
 		if (Category == null)
-			return new ResponseEntity<ResponseGetCategory>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<CategoryGetResponse>(HttpStatus.NOT_FOUND);
 
 		categoryService.deleteCategoryById(Long.parseLong(id));
-		return new ResponseEntity<ResponseGetCategory>(HttpStatus.OK);
+		return new ResponseEntity<CategoryGetResponse>(HttpStatus.OK);
 	}
 
 }

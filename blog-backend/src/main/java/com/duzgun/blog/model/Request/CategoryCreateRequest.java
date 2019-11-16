@@ -1,7 +1,7 @@
 package com.duzgun.blog.model.Request;
 
 
-public class RequestCreateCategory {
+public class CategoryCreateRequest {
 	private long Id;
 	
 	private String Name;

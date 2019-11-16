@@ -2,7 +2,7 @@ package com.duzgun.blog.model.Request;
 
 import com.duzgun.blog.model.entity.Category;
 
-public class RequestCreatePost {
+public class PostCreateRequest {
 	private String Title;
 	private String Body;
 	private Boolean IsActive;

@@ -2,12 +2,16 @@ package com.duzgun.blog.model.Response;
 
 import java.util.Date;
 
-public class ResponseGetCategory {
-	
+
+public class CategoryCreateResponse {
 	private Long Id;
+	
 	private String Name;
+	
 	private Date CreateDate;
+
 	private Date UpdateDate;
+
 	private Boolean IsActive;
 	
 	public Long getId() {

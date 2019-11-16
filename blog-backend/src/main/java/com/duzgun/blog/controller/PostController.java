@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.duzgun.blog.model.Request.RequestCreatePost;
-import com.duzgun.blog.model.Response.ResponseCreatePost;
+import com.duzgun.blog.model.Request.PostCreateRequest;
+import com.duzgun.blog.model.Response.PostCreateResponse;
 import com.duzgun.blog.model.entity.Post;
 import com.duzgun.blog.service.PostService;
 
@@ -28,13 +28,10 @@ public class PostController {
 	PostService postService;
 
 	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	public ResponseEntity<ResponseCreatePost> createPost(@RequestBody RequestCreatePost post, UriComponentsBuilder ucBuilder) {
-		ResponseCreatePost savedPost = postService.createPost(post);
-		
-		HttpHeaders header = new HttpHeaders();
-		header.setLocation(ucBuilder.path("/Post/{id}").buildAndExpand(savedPost.getId()).toUri());
+	public PostCreateResponse createPost(@RequestBody PostCreateRequest post) {
+		PostCreateResponse savedPost = postService.createPost(post);
 
-		return new ResponseEntity<ResponseCreatePost>(savedPost,header, HttpStatus.CREATED);
+		return savedPost;
 	}
 
 	@GetMapping

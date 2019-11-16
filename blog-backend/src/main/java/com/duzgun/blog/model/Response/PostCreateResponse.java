@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.duzgun.blog.model.entity.Category;
 
-public class ResponseCreatePost {
+public class PostCreateResponse {
 	private Long Id;
 	private String Title;
 	private String Body;

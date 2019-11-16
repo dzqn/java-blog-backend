@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.duzgun.blog.model.Request.RequestCreatePost;
-import com.duzgun.blog.model.Response.ResponseCreatePost;
+import com.duzgun.blog.model.Request.PostCreateRequest;
+import com.duzgun.blog.model.Response.PostCreateResponse;
 import com.duzgun.blog.model.entity.Post;
 import com.duzgun.blog.repository.PostRepository;
 
@@ -20,7 +20,7 @@ public class PostServiceImp implements PostService {
 	PostRepository postRepository;
 
 	@Override
-	public ResponseCreatePost createPost(RequestCreatePost post) {
+	public PostCreateResponse createPost(PostCreateRequest post) {
 		Date date = new Date();
 		Post savePost = new Post();
 		savePost.setTitle(post.getTitle());
@@ -30,7 +30,7 @@ public class PostServiceImp implements PostService {
 		savePost.setCategory(post.getCategory());
 		postRepository.save(savePost);
 
-		ResponseCreatePost savedPost = new ResponseCreatePost();
+		PostCreateResponse savedPost = new PostCreateResponse();
 		savedPost.setId(savePost.getId());
 		savedPost.setTitle(savePost.getTitle());
 		savedPost.setBody(savePost.getBody());
