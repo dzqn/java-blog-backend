@@ -9,13 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.duzgun.blog.model.Request.PostCreateRequest;
 import com.duzgun.blog.model.Response.PostCreateResponse;
+import com.duzgun.blog.model.Response.PostGetResponse;
 import com.duzgun.blog.model.entity.Post;
 import com.duzgun.blog.repository.PostRepository;
 
 @Service
 @Transactional
 public class PostServiceImp implements PostService {
-
 	@Autowired
 	PostRepository postRepository;
 
@@ -36,7 +36,6 @@ public class PostServiceImp implements PostService {
 		savedPost.setBody(savePost.getBody());
 		savedPost.setCreateDate(savePost.getCreateDate());
 		savedPost.setIsActive(savePost.getIsActive());
-		//savedPost.setCategory(savePost.getCategory());
 
 		return savedPost;
 	}
@@ -48,13 +47,22 @@ public class PostServiceImp implements PostService {
 	}
 
 	@Override
-	public Post findById(long id) {
-		return postRepository.findById(id).get();
+	public PostGetResponse findById(long id) {
+		Post post =	postRepository.findById(id).get();
+		
+		PostGetResponse response = new PostGetResponse();
+		response.setId(post.getId());
+		response.setTitle(post.getTitle());
+		response.setBody(post.getBody());
+		response.setCreateDate(post.getCreateDate());
+		response.setUpdateDate(post.getUpdateDate());
+		response.setIsActive(post.getIsActive());
+		
+		return response;		
 	}
 
 	@Override
 	public Post update(Post post) {
-
 		return postRepository.save(post);
 	}
 
@@ -62,5 +70,4 @@ public class PostServiceImp implements PostService {
 	public void deletePostById(long id) {
 		postRepository.deleteById(id);
 	}
-
 }

@@ -74,5 +74,4 @@ public class CategoryController {
 		categoryService.deleteCategoryById(Long.parseLong(id));
 		return new ResponseEntity<CategoryGetResponse>(HttpStatus.OK);
 	}
-
 }
